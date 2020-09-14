@@ -1,1 +1,3 @@
-alert("Game Started");
+const es6 = () => alert("Game Started");
+
+es6();
