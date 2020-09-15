@@ -56,5 +56,15 @@ export default class GameScene extends Phaser.Scene {
     });
 
     this.player = this.add.sprite(100, 500, 'blast0').play('run');
+
+    this.cursors = this.input.keyboard.createCursorKeys();
+  }
+
+  update() {
+    if (this.cursors.left.isDown) {
+      this.player.anims.play('left', true);
+    } else if (this.cursors.right.isDown) {
+      this.player.anims.play('right', true);
+    }
   }
 }
