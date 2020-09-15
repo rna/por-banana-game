@@ -62,9 +62,11 @@ export default class GameScene extends Phaser.Scene {
 
   update() {
     if (this.cursors.left.isDown) {
-      this.player.anims.play('left', true);
+      this.player.setFlip(true, false);
+      this.player.anims.play('run', true);
     } else if (this.cursors.right.isDown) {
-      this.player.anims.play('right', true);
+      this.player.setFlip(false, false);
+      this.player.anims.play('run', true);
     }
   }
 }
