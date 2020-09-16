@@ -55,7 +55,7 @@ export default class GameScene extends Phaser.Scene {
       repeat: 1,
     });
 
-    this.player = this.add.sprite(100, 500, 'blast0').play('run');
+    this.player = this.physics.add.sprite(100, 500, 'run1').play('run');
 
     this.cursors = this.input.keyboard.createCursorKeys();
   }
@@ -63,10 +63,14 @@ export default class GameScene extends Phaser.Scene {
   update() {
     if (this.cursors.left.isDown) {
       this.player.setFlip(true, false);
+      this.player.body.setVelocityX(-80);
       this.player.anims.play('run', true);
     } else if (this.cursors.right.isDown) {
       this.player.setFlip(false, false);
+      this.player.body.setVelocityX(80);
       this.player.anims.play('run', true);
+    } else if (!this.cursors.right.isDown && !this.cursors.left.isDown) {
+      this.player.body.setVelocityX(0);
     }
   }
 }
