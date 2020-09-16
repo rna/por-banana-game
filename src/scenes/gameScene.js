@@ -1,7 +1,4 @@
 import Phaser from 'phaser';
-import sky from '../assets/Sky.png';
-import shrubs from '../assets/shrubs.png';
-import ground from '../assets/ground.png';
 import run1 from '../assets/Run/Run1.png';
 import run2 from '../assets/Run/Run2.png';
 import run3 from '../assets/Run/Run3.png';
