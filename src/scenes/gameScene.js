@@ -9,6 +9,7 @@ import run4 from '../assets/Run/Run4.png';
 import run5 from '../assets/Run/Run5.png';
 import run6 from '../assets/Run/Run6.png';
 import run7 from '../assets/Run/Run7.png';
+import forest from '../assets/Forest_layer.png';
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -16,9 +17,8 @@ export default class GameScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('bg', sky);
-    this.load.image('trees', shrubs);
-    this.load.image('ground', ground);
+    this.load.image('bg', forest);
+
     this.load.image('run1', run1);
     this.load.image('run2', run2);
     this.load.image('run3', run3);
@@ -29,16 +29,9 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(400, 300, 'bg');
-
-    this.tree = this.add.tileSprite(0, 0, this.game.config.width, 0, 'trees');
-    this.tree.setOrigin(0, 0);
-    this.tree.setScrollFactor(0);
-
-    this.ground = this.add.tileSprite(0, 0, this.game.config.width, 100, 'ground');
-    this.ground.setOrigin(0, 0);
-    this.ground.setScrollFactor(0);
-    this.ground.y = 500;
+    this.background = this.add.tileSprite(0, 0, 800, 0, 'bg');
+    this.background.setOrigin(0, 0);
+    this.background.setScrollFactor(0);
 
     this.anims.create({
       key: 'run',
@@ -63,11 +56,11 @@ export default class GameScene extends Phaser.Scene {
   update() {
     if (this.cursors.left.isDown) {
       this.player.setFlip(true, false);
-      this.player.body.setVelocityX(-80);
+      this.player.body.setVelocityX(-160);
       this.player.anims.play('run', true);
     } else if (this.cursors.right.isDown) {
       this.player.setFlip(false, false);
-      this.player.body.setVelocityX(80);
+      this.player.body.setVelocityX(160);
       this.player.anims.play('run', true);
     } else if (!this.cursors.right.isDown && !this.cursors.left.isDown) {
       this.player.body.setVelocityX(0);
