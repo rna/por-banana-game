@@ -8,6 +8,7 @@ import run4 from '../assets/Run/Run4.png';
 import run5 from '../assets/Run/Run5.png';
 import run6 from '../assets/Run/Run6.png';
 import run7 from '../assets/Run/Run7.png';
+import banana from '../assets/Banana.png';
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -24,6 +25,8 @@ export default class GameScene extends Phaser.Scene {
     this.load.image('run5', run5);
     this.load.image('run6', run6);
     this.load.image('run7', run7);
+
+    this.load.image('banana', banana);
   }
 
   create() {
@@ -51,8 +54,17 @@ export default class GameScene extends Phaser.Scene {
     this.player = this.physics.add.sprite(100, 500, 'run1').play('run');
     this.player.setCollideWorldBounds(true);
 
-
     this.cursors = this.input.keyboard.createCursorKeys();
+
+    this.bananas = this.physics.add.group({
+      key: 'banana',
+      repeat: 6,
+      setXY: { x: 400, y: 500, stepX: 200 },
+    });
+
+    this.physics.add.collider(this.player, this.bananas);
+
+    this.physics.add.overlap(this.player, this.bananas, this.collectBanana, null, this);
   }
 
   update() {
@@ -68,6 +80,16 @@ export default class GameScene extends Phaser.Scene {
       this.background.tilePositionX += 15;
     } else if (!this.cursors.right.isDown && !this.cursors.left.isDown) {
       this.player.body.setVelocityX(0);
+    }
+  }
+
+  collectBanana(player, banana) {
+    banana.disableBody(true, true);
+
+    if (this.bananas.countActive(true) === 0) {
+      this.bananas.children.iterate((child) => {
+        child.enableBody(true, child.x, 0, true, true);
+      });
     }
   }
 }
