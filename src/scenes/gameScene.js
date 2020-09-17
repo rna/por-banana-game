@@ -1,4 +1,6 @@
 import Phaser from 'phaser';
+
+import forest from '../assets/Forest_layer.png';
 import run1 from '../assets/Run/Run1.png';
 import run2 from '../assets/Run/Run2.png';
 import run3 from '../assets/Run/Run3.png';
@@ -6,7 +8,6 @@ import run4 from '../assets/Run/Run4.png';
 import run5 from '../assets/Run/Run5.png';
 import run6 from '../assets/Run/Run6.png';
 import run7 from '../assets/Run/Run7.png';
-import forest from '../assets/Forest_layer.png';
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -30,6 +31,8 @@ export default class GameScene extends Phaser.Scene {
     this.background.setOrigin(0, 0);
     this.background.setScrollFactor(0);
 
+    this.background.fixedToCamera = true;
+
     this.anims.create({
       key: 'run',
       frames: [
@@ -46,7 +49,6 @@ export default class GameScene extends Phaser.Scene {
     });
 
     this.player = this.physics.add.sprite(100, 500, 'run1').play('run');
-
     this.cursors = this.input.keyboard.createCursorKeys();
   }
 
@@ -55,10 +57,12 @@ export default class GameScene extends Phaser.Scene {
       this.player.setFlip(true, false);
       this.player.body.setVelocityX(-160);
       this.player.anims.play('run', true);
+      this.background.tilePositionX -= 15;
     } else if (this.cursors.right.isDown) {
       this.player.setFlip(false, false);
       this.player.body.setVelocityX(160);
       this.player.anims.play('run', true);
+      this.background.tilePositionX += 15;
     } else if (!this.cursors.right.isDown && !this.cursors.left.isDown) {
       this.player.body.setVelocityX(0);
     }
