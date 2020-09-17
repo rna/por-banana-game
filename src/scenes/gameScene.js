@@ -49,18 +49,21 @@ export default class GameScene extends Phaser.Scene {
     });
 
     this.player = this.physics.add.sprite(100, 500, 'run1').play('run');
+    this.player.setCollideWorldBounds(true);
+
+
     this.cursors = this.input.keyboard.createCursorKeys();
   }
 
   update() {
     if (this.cursors.left.isDown) {
       this.player.setFlip(true, false);
-      this.player.body.setVelocityX(-160);
+      this.player.body.setVelocityX(-80);
       this.player.anims.play('run', true);
       this.background.tilePositionX -= 15;
     } else if (this.cursors.right.isDown) {
       this.player.setFlip(false, false);
-      this.player.body.setVelocityX(160);
+      this.player.body.setVelocityX(80);
       this.player.anims.play('run', true);
       this.background.tilePositionX += 15;
     } else if (!this.cursors.right.isDown && !this.cursors.left.isDown) {
