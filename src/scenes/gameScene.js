@@ -30,11 +30,8 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
-    this.background = this.add.tileSprite(0, 0, 800, 0, 'bg');
+    this.background = this.add.tileSprite(0, 0, 800, 600, 'bg');
     this.background.setOrigin(0, 0);
-    this.background.setScrollFactor(0);
-
-    this.background.fixedToCamera = true;
 
     this.anims.create({
       key: 'run',
@@ -58,26 +55,28 @@ export default class GameScene extends Phaser.Scene {
 
     this.bananas = this.physics.add.group({
       key: 'banana',
-      repeat: 6,
-      setXY: { x: 400, y: 500, stepX: 200 },
+      repeat: 5,
+      setXY: { x: 300, y: 500, stepX: 150 },
     });
 
-    this.physics.add.collider(this.player, this.bananas);
 
     this.physics.add.overlap(this.player, this.bananas, this.collectBanana, null, this);
+    // this.physics.add.collider(this.player, this.bananas, this.collectBanana, null, this);
   }
 
   update() {
     if (this.cursors.left.isDown) {
       this.player.setFlip(true, false);
-      this.player.body.setVelocityX(-80);
       this.player.anims.play('run', true);
-      this.background.tilePositionX -= 15;
+      this.background.tilePositionX -= 5;
     } else if (this.cursors.right.isDown) {
       this.player.setFlip(false, false);
-      this.player.body.setVelocityX(80);
+      Phaser.Actions.Call(this.bananas.getChildren(), (e) => {
+        e.setVelocityX(-200);
+      });
+
       this.player.anims.play('run', true);
-      this.background.tilePositionX += 15;
+      this.background.tilePositionX += 5;
     } else if (!this.cursors.right.isDown && !this.cursors.left.isDown) {
       this.player.body.setVelocityX(0);
     }
@@ -87,9 +86,9 @@ export default class GameScene extends Phaser.Scene {
     banana.disableBody(true, true);
 
     if (this.bananas.countActive(true) === 0) {
-      this.bananas.children.iterate((child) => {
-        child.enableBody(true, child.x, 0, true, true);
-      });
+    //   this.bananas.children.iterate((child) => {
+    //     child.enableBody(true, child.x, 500, true, true);
+    //   });
     }
   }
 }
