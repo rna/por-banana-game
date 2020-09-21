@@ -50,31 +50,38 @@ export default class GameScene extends Phaser.Scene {
 
     this.player = this.physics.add.sprite(100, 500, 'run1').play('run');
     this.player.setCollideWorldBounds(true);
+    this.player.setScale(0.7);
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
     this.bananas = this.physics.add.group({
       key: 'banana',
-      repeat: 5,
-      setXY: { x: 300, y: 500, stepX: 150 },
+      repeat: 4,
+      setXY: { x: 400, y: 500, stepX: 120 },
     });
 
-
-    this.physics.add.overlap(this.player, this.bananas, this.collectBanana, null, this);
-    // this.physics.add.collider(this.player, this.bananas, this.collectBanana, null, this);
+    this.physics.add.overlap(
+      this.player,
+      this.bananas,
+      this.collectBanana,
+      null,
+      this,
+    );
   }
 
   update() {
+    if (this.player.x > 650) {
+      this.player.setPosition(100, 500);
+    }
+
     if (this.cursors.left.isDown) {
       this.player.setFlip(true, false);
+      this.player.setVelocityX(-180);
       this.player.anims.play('run', true);
       this.background.tilePositionX -= 5;
     } else if (this.cursors.right.isDown) {
       this.player.setFlip(false, false);
-      Phaser.Actions.Call(this.bananas.getChildren(), (e) => {
-        e.setVelocityX(-200);
-      });
-
+      this.player.setVelocityX(180);
       this.player.anims.play('run', true);
       this.background.tilePositionX += 5;
     } else if (!this.cursors.right.isDown && !this.cursors.left.isDown) {
@@ -85,10 +92,10 @@ export default class GameScene extends Phaser.Scene {
   collectBanana(player, banana) {
     banana.disableBody(true, true);
 
-    if (this.bananas.countActive(true) === 0) {
-    //   this.bananas.children.iterate((child) => {
-    //     child.enableBody(true, child.x, 500, true, true);
-    //   });
+    if (this.bananas.countActive(true) === 1) {
+      this.bananas.children.iterate((child) => {
+        child.enableBody(false, child.x, Phaser.Math.Between(300, 500), true, true);
+      });
     }
   }
 }
