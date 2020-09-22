@@ -9,10 +9,12 @@ import run5 from '../assets/Run/Run5.png';
 import run6 from '../assets/Run/Run6.png';
 import run7 from '../assets/Run/Run7.png';
 import banana from '../assets/Banana.png';
+import enemy from '../assets/EvilCat.png';
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
     super('Game');
+    this.gameOver = false;
   }
 
   preload() {
@@ -27,6 +29,7 @@ export default class GameScene extends Phaser.Scene {
     this.load.image('run7', run7);
 
     this.load.image('banana', banana);
+    this.load.image('enemy', enemy);
   }
 
   create() {
@@ -60,6 +63,8 @@ export default class GameScene extends Phaser.Scene {
       setXY: { x: 400, y: 500, stepX: 120 },
     });
 
+    this.enemies = this.physics.add.group();
+
     this.physics.add.overlap(
       this.player,
       this.bananas,
@@ -67,22 +72,30 @@ export default class GameScene extends Phaser.Scene {
       null,
       this,
     );
+
+    this.physics.add.collider(this.player, this.enemies, this.hitEnemy, null, this);
   }
 
   update() {
     if (this.player.x > 700) {
       this.player.setPosition(100, 500);
+
+      const enemy = this.enemies.create(700, 500, 'enemy');
+      enemy.setVelocityX(-180);
+      enemy.setScale(0.5);
+
       this.bananas.children.iterate((child) => {
         child.enableBody(false, child.x, 500, true, true);
+        child.setVelocityX(-80);
       });
     }
 
-    if (this.cursors.left.isDown) {
+    if (this.cursors.left.isDown && !this.gameOver) {
       this.player.setFlip(true, false);
       this.player.setVelocityX(-180);
       this.player.anims.play('run', true);
       this.background.tilePositionX -= 5;
-    } else if (this.cursors.right.isDown) {
+    } else if (this.cursors.right.isDown && !this.gameOver) {
       this.player.setFlip(false, false);
       this.player.setVelocityX(180);
       this.player.anims.play('run', true);
@@ -94,7 +107,12 @@ export default class GameScene extends Phaser.Scene {
 
   collectBanana(player, banana) {
     banana.disableBody(true, true);
+  }
 
-    // if (this.bananas.countActive(true) === 1) {}
+  hitEnemy() {
+    this.physics.pause();
+    this.player.setTint(0xff0000);
+    this.player.anims.play('run', false);
+    this.gameOver = true;
   }
 }
