@@ -10,6 +10,13 @@ import run6 from '../assets/Run/Run6.png';
 import run7 from '../assets/Run/Run7.png';
 import banana from '../assets/Banana.png';
 import enemy from '../assets/EvilCat.png';
+import Jump1 from '../assets/Jump/Jump1.png';
+import Jump2 from '../assets/Jump/Jump2.png';
+import Jump3 from '../assets/Jump/Jump3.png';
+import Jump4 from '../assets/Jump/Jump4.png';
+import Jump5 from '../assets/Jump/Jump5.png';
+import Jump6 from '../assets/Jump/Jump6.png';
+import Jump7 from '../assets/Jump/Jump7.png';
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -30,6 +37,14 @@ export default class GameScene extends Phaser.Scene {
 
     this.load.image('banana', banana);
     this.load.image('enemy', enemy);
+
+    this.load.image('Jump1', Jump1);
+    this.load.image('Jump2', Jump2);
+    this.load.image('Jump3', Jump3);
+    this.load.image('Jump4', Jump4);
+    this.load.image('Jump5', Jump5);
+    this.load.image('Jump6', Jump6);
+    this.load.image('Jump7', Jump7);
   }
 
   create() {
@@ -46,6 +61,21 @@ export default class GameScene extends Phaser.Scene {
         { key: 'run5' },
         { key: 'run6' },
         { key: 'run7' },
+      ],
+      frameRate: 10,
+      repeat: 1,
+    });
+
+    this.anims.create({
+      key: 'jump',
+      frames: [
+        { key: 'Jump1' },
+        { key: 'Jump2' },
+        { key: 'Jump3' },
+        { key: 'Jump4' },
+        { key: 'Jump5' },
+        { key: 'Jump6' },
+        { key: 'Jump7' },
       ],
       frameRate: 10,
       repeat: 1,
@@ -100,6 +130,11 @@ export default class GameScene extends Phaser.Scene {
       this.player.setVelocityX(180);
       this.player.anims.play('run', true);
       this.background.tilePositionX += 5;
+    } else if (this.cursors.up.isDown && !this.gameOver) {
+      this.player.setFlip(false, false);
+      this.player.setVelocity(180, -400);
+      this.player.setGravityY(500);
+      this.player.anims.play('jump', true);
     } else if (!this.cursors.right.isDown && !this.cursors.left.isDown) {
       this.player.body.setVelocityX(0);
     }
