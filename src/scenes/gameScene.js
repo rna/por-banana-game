@@ -83,7 +83,7 @@ export default class GameScene extends Phaser.Scene {
 
     this.player = this.physics.add.sprite(100, 500, 'run1').play('run');
     this.player.setCollideWorldBounds(true);
-    this.player.setScale(0.7);
+    this.player.body.setSize(100, 180);
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -110,9 +110,9 @@ export default class GameScene extends Phaser.Scene {
     if (this.player.x > 700) {
       this.player.setPosition(100, 500);
 
-      const enemy = this.enemies.create(700, 500, 'enemy');
-      enemy.setVelocityX(-180);
-      enemy.setScale(0.5);
+      const enemy = this.enemies.create(750, 500, 'enemy');
+      enemy.setVelocityX(-60);
+      enemy.body.setSize(100, 140);
 
       this.bananas.children.iterate((child) => {
         child.enableBody(false, child.x, 500, true, true);
@@ -132,7 +132,7 @@ export default class GameScene extends Phaser.Scene {
       this.background.tilePositionX += 5;
     } else if (this.cursors.up.isDown && !this.gameOver) {
       this.player.setFlip(false, false);
-      this.player.setVelocity(180, -400);
+      this.player.setVelocity(180, -300);
       this.player.setGravityY(500);
       this.player.anims.play('jump', true);
     } else if (!this.cursors.right.isDown && !this.cursors.left.isDown) {
