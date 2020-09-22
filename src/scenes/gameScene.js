@@ -22,6 +22,7 @@ export default class GameScene extends Phaser.Scene {
   constructor() {
     super('Game');
     this.gameOver = false;
+    this.score = 0;
   }
 
   preload() {
@@ -104,6 +105,8 @@ export default class GameScene extends Phaser.Scene {
     );
 
     this.physics.add.collider(this.player, this.enemies, this.hitEnemy, null, this);
+
+    this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
   }
 
   update() {
@@ -111,7 +114,7 @@ export default class GameScene extends Phaser.Scene {
       this.player.setPosition(100, 500);
 
       const enemy = this.enemies.create(750, 500, 'enemy');
-      enemy.setVelocityX(-60);
+      enemy.setVelocityX(-160);
       enemy.body.setSize(100, 140);
 
       this.bananas.children.iterate((child) => {
@@ -140,8 +143,11 @@ export default class GameScene extends Phaser.Scene {
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
   collectBanana(player, banana) {
     banana.disableBody(true, true);
+    this.score += 10;
+    this.scoreText.setText(`Score: ${this.score}`);
   }
 
   hitEnemy() {
