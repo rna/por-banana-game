@@ -70,8 +70,11 @@ export default class GameScene extends Phaser.Scene {
   }
 
   update() {
-    if (this.player.x > 650) {
+    if (this.player.x > 700) {
       this.player.setPosition(100, 500);
+      this.bananas.children.iterate((child) => {
+        child.enableBody(false, child.x, 500, true, true);
+      });
     }
 
     if (this.cursors.left.isDown) {
@@ -92,10 +95,6 @@ export default class GameScene extends Phaser.Scene {
   collectBanana(player, banana) {
     banana.disableBody(true, true);
 
-    if (this.bananas.countActive(true) === 1) {
-      this.bananas.children.iterate((child) => {
-        child.enableBody(false, child.x, Phaser.Math.Between(300, 500), true, true);
-      });
-    }
+    // if (this.bananas.countActive(true) === 1) {}
   }
 }
