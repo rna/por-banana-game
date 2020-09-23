@@ -3,7 +3,7 @@ import wallpaper from '../assets/boot.png';
 
 export default class BootScene extends Phaser.Scene {
   constructor() {
-    super('Boot');
+    super();
   }
 
   preload() {
@@ -21,7 +21,7 @@ export default class BootScene extends Phaser.Scene {
 
   update() {
     if (this.cursor.space.isDown) {
-      this.scene.start('GameScene');
+      this.scene.start('game');
     }
   }
 }
