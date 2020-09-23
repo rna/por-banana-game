@@ -45,6 +45,7 @@ export default class TitleScene extends Phaser.Scene {
 
     this.play.setInteractive().on('pointerdown', () => {
       if (this.input.node.value) {
+        this.game.playerName = this.input.node.value;
         this.scene.start('Game');
       }
     });

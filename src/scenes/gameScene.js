@@ -141,6 +141,15 @@ export default class GameScene extends Phaser.Scene {
     } else if (!this.cursors.right.isDown && !this.cursors.left.isDown) {
       this.player.body.setVelocityX(0);
     }
+
+    if (this.gameOver === true) {
+      const data = {
+        score: this.score,
+        user: this.game.playerName,
+      };
+      this.highScores(JSON.stringify(data));
+      this.scene.start('Boot');
+    }
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -155,5 +164,9 @@ export default class GameScene extends Phaser.Scene {
     this.player.setTint(0xff0000);
     this.player.anims.play('run', false);
     this.gameOver = true;
+  }
+
+  highScores(data){
+    console.log(data);
   }
 }
