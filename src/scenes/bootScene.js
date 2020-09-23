@@ -27,7 +27,7 @@ export default class BootScene extends Phaser.Scene {
 
   update() {
     if (this.cursor.space.isDown) {
-      this.scene.start('game');
+      this.scene.start('Game');
     }
   }
 }
