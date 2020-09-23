@@ -21,7 +21,6 @@ import Jump7 from '../assets/Jump/Jump7.png';
 export default class GameScene extends Phaser.Scene {
   constructor() {
     super('Game');
-    this.gameOver = false;
   }
 
   preload() {
@@ -132,17 +131,17 @@ export default class GameScene extends Phaser.Scene {
       });
     }
 
-    if (this.cursors.left.isDown && !this.gameOver) {
+    if (this.cursors.left.isDown && !this.game.gameOver) {
       this.player.setFlip(true, false);
       this.player.setVelocityX(-180);
       this.player.anims.play('run', true);
       this.background.tilePositionX -= 5;
-    } else if (this.cursors.right.isDown && !this.gameOver) {
+    } else if (this.cursors.right.isDown && !this.game.gameOver) {
       this.player.setFlip(false, false);
       this.player.setVelocityX(180);
       this.player.anims.play('run', true);
       this.background.tilePositionX += 5;
-    } else if (this.cursors.up.isDown && !this.gameOver) {
+    } else if (this.cursors.up.isDown && !this.game.gameOver) {
       this.player.setFlip(false, false);
       this.player.setVelocity(180, -300);
       this.player.setGravityY(500);
@@ -151,7 +150,7 @@ export default class GameScene extends Phaser.Scene {
       this.player.body.setVelocityX(0);
     }
 
-    if (this.gameOver === true) {
+    if (this.game.gameOver === true) {
       const data = {
         score: this.game.score,
         user: this.game.playerName,
@@ -172,7 +171,7 @@ export default class GameScene extends Phaser.Scene {
     this.physics.pause();
     this.player.setTint(0xff0000);
     this.player.anims.play('run', false);
-    this.gameOver = true;
+    this.game.gameOver = true;
   }
 
   async postScores(data) { // eslint-disable-line class-methods-use-this

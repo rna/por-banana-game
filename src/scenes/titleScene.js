@@ -47,6 +47,7 @@ export default class TitleScene extends Phaser.Scene {
       if (this.input.node.value) {
         this.game.playerName = this.input.node.value;
         this.scene.start('Game');
+        this.game.gameOver = false;
       }
     });
   }
