@@ -12,19 +12,19 @@ export default class TitleScene extends Phaser.Scene {
 
   create() {
     this.add
-      .text(400, 200, 'Enter your name', {
+      .text(400, 150, 'Enter your name', {
         font: '32px monospace',
         fill: '#fff',
       })
       .setOrigin(0.5, 0.5);
 
     this.add
-      .dom(400, 250, 'input', {
+      .dom(400, 200, 'input', {
         type: 'text',
         name: 'nameField',
         fontSize: '32px',
-        color: 'yellow',
-        backgroundColor: 'white',
+        color: 'white',
+        backgroundColor: '#aaa',
         placeholder: 'Name',
       })
       .setOrigin(0.5, 0.5);
