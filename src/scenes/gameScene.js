@@ -156,7 +156,7 @@ export default class GameScene extends Phaser.Scene {
         score: this.game.score,
         user: this.game.playerName,
       };
-      this.postHighScores(JSON.stringify(data));
+      this.postScores(JSON.stringify(data));
       this.scene.start('End');
     }
   }
@@ -175,7 +175,7 @@ export default class GameScene extends Phaser.Scene {
     this.gameOver = true;
   }
 
-  async postHighScores(data) { // eslint-disable-line class-methods-use-this
+  async postScores(data) { // eslint-disable-line class-methods-use-this
     const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/xJaaYOvOiH8wnFAVEPTP/scores/';
 
     const fetchData = {
@@ -188,6 +188,6 @@ export default class GameScene extends Phaser.Scene {
       body: data,
     };
 
-    return fetch(url, fetchData).then((response) => response);
+    return fetch(url, fetchData).then((response) => response.json());
   }
 }
