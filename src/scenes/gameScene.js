@@ -104,9 +104,18 @@ export default class GameScene extends Phaser.Scene {
       this,
     );
 
-    this.physics.add.collider(this.player, this.enemies, this.hitEnemy, null, this);
+    this.physics.add.collider(
+      this.player,
+      this.enemies,
+      this.hitEnemy,
+      null,
+      this,
+    );
 
-    this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+    this.scoreText = this.add.text(16, 16, 'score: 0', {
+      fontSize: '32px',
+      fill: '#000',
+    });
   }
 
   update() {
@@ -147,7 +156,7 @@ export default class GameScene extends Phaser.Scene {
         score: this.score,
         user: this.game.playerName,
       };
-      this.highScores(JSON.stringify(data));
+      this.postHighScores(JSON.stringify(data));
       this.scene.start('Boot');
     }
   }
@@ -166,7 +175,19 @@ export default class GameScene extends Phaser.Scene {
     this.gameOver = true;
   }
 
-  highScores(data){
-    console.log(data);
+  async postHighScores(data) { // eslint-disable-line class-methods-use-this
+    const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/xJaaYOvOiH8wnFAVEPTP/scores/';
+
+    const fetchData = {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        Accept: 'Application/json',
+        'Content-Type': 'application/json',
+      },
+      body: data,
+    };
+
+    return fetch(url, fetchData).then((response) => response);
   }
 }
