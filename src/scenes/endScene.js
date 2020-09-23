@@ -10,8 +10,8 @@ export default class EndScene extends Phaser.Scene {
     this.load.image('replay', replay);
   }
 
-  create() {
-    this.highScores = this.getScores();
+  async create() {
+    this.highScores = await this.getScores();
 
     this.add
       .text(400, 150, `Your Score: ${this.game.score}`, {
