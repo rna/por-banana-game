@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import controls from '../assets/controls.png';
+import play from '../assets/play.png';
 
 export default class TitleScene extends Phaser.Scene {
   constructor() {
@@ -8,6 +9,7 @@ export default class TitleScene extends Phaser.Scene {
 
   preload() {
     this.load.image('controls', controls);
+    this.load.image('play', play);
   }
 
   create() {
@@ -18,19 +20,18 @@ export default class TitleScene extends Phaser.Scene {
       })
       .setOrigin(0.5, 0.5);
 
-    this.add
+    this.input = this.add
       .dom(400, 200, 'input', {
         type: 'text',
         name: 'nameField',
         fontSize: '32px',
         color: 'white',
         backgroundColor: '#aaa',
-        placeholder: 'Name',
       })
       .setOrigin(0.5, 0.5);
 
     this.add
-      .text(400, 360, 'Game Controls', {
+      .text(400, 400, 'Game Controls', {
         font: '32px monospace',
         fill: '#adf',
         align: 'center',
@@ -39,5 +40,13 @@ export default class TitleScene extends Phaser.Scene {
       .setOrigin(0.5, 0.5);
 
     this.add.image(400, 500, 'controls');
+
+    this.play = this.add.sprite(400, 300, 'play').setScale(0.3);
+
+    this.play.setInteractive().on('pointerdown', () => {
+      if (this.input.node.value) {
+        this.scene.start('Game');
+      }
+    });
   }
 }
