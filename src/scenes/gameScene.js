@@ -22,7 +22,6 @@ export default class GameScene extends Phaser.Scene {
   constructor() {
     super('Game');
     this.gameOver = false;
-    this.score = 0;
   }
 
   preload() {
@@ -51,6 +50,7 @@ export default class GameScene extends Phaser.Scene {
   create() {
     this.background = this.add.tileSprite(0, 0, 800, 600, 'bg');
     this.background.setOrigin(0, 0);
+    this.game.score = 0;
 
     this.anims.create({
       key: 'run',
@@ -153,19 +153,19 @@ export default class GameScene extends Phaser.Scene {
 
     if (this.gameOver === true) {
       const data = {
-        score: this.score,
+        score: this.game.score,
         user: this.game.playerName,
       };
       this.postHighScores(JSON.stringify(data));
-      this.scene.start('Boot');
+      this.scene.start('End');
     }
   }
 
   // eslint-disable-next-line class-methods-use-this
   collectBanana(player, banana) {
     banana.disableBody(true, true);
-    this.score += 10;
-    this.scoreText.setText(`Score: ${this.score}`);
+    this.game.score += 10;
+    this.scoreText.setText(`Score: ${this.game.score}`);
   }
 
   hitEnemy() {
