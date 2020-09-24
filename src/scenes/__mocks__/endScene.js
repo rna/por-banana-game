@@ -1,17 +1,11 @@
-import Phaser from 'phaser';
-import replay from '../assets/replay.png';
-
-export default class EndScene extends Phaser.Scene {
-  constructor() {
-    super('End');
-  }
+export default class EndScene {
 
   preload() {
     this.load.image('replay', replay);
   }
 
-  async create() {
-    this.highScores = await this.getScores();
+  create() {
+    this.highScores = this.getScores();
 
     this.add
       .text(400, 150, `Your Score: ${this.game.score}`, {
@@ -54,7 +48,7 @@ export default class EndScene extends Phaser.Scene {
     });
   }
 
-  async getScores() { // eslint-disable-line class-methods-use-this
+  getScores() { // eslint-disable-line class-methods-use-this
     const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/xJaaYOvOiH8wnFAVEPTP/scores/';
 
     const fetchData = {
