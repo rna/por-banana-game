@@ -21,15 +21,19 @@
 ## Game Scenes
 
 ### Welcome Scene
+
 ![Welcome Scene](./welcome-scene.png)
 
 ### Title Scene
+
 ![Title Scene](./title-scene.png)
 
 ### Game Scene
+
 ![Game Scene](./game-scene.png)
 
 ### End Scene
+
 ![End Scene](./end-scene.png)
 
 ## How To Play
@@ -52,7 +56,7 @@
 
 ## Live Demo
 
-[Live Demo Link](https://por-banana.netlify.app//)
+[Live Demo Link](https://por-banana.netlify.app)
 
 ## Getting Started
 
