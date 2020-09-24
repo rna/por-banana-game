@@ -1,12 +1,4 @@
-import Phaser from 'phaser';
-import wallpaper from '../assets/boot.png';
-import bananas from '../assets/Bananas.png';
-import monkey from '../assets/Jump/Jump1.png';
-
-export default class BootScene extends Phaser.Scene {
-  constructor() {
-    super('Boot');
-  }
+export default class BootScene {
 
   preload() {
     this.load.image('background', wallpaper);
