@@ -1,27 +1,4 @@
-import Phaser from 'phaser';
-
-import forest from '../assets/Forest_layer.png';
-import run1 from '../assets/Run/Run1.png';
-import run2 from '../assets/Run/Run2.png';
-import run3 from '../assets/Run/Run3.png';
-import run4 from '../assets/Run/Run4.png';
-import run5 from '../assets/Run/Run5.png';
-import run6 from '../assets/Run/Run6.png';
-import run7 from '../assets/Run/Run7.png';
-import banana from '../assets/Banana.png';
-import enemy from '../assets/EvilCat.png';
-import Jump1 from '../assets/Jump/Jump1.png';
-import Jump2 from '../assets/Jump/Jump2.png';
-import Jump3 from '../assets/Jump/Jump3.png';
-import Jump4 from '../assets/Jump/Jump4.png';
-import Jump5 from '../assets/Jump/Jump5.png';
-import Jump6 from '../assets/Jump/Jump6.png';
-import Jump7 from '../assets/Jump/Jump7.png';
-
-export default class GameScene extends Phaser.Scene {
-  constructor() {
-    super('Game');
-  }
+export default class GameScene{
 
   preload() {
     this.load.image('bg', forest);
@@ -174,7 +151,7 @@ export default class GameScene extends Phaser.Scene {
     this.game.gameOver = true;
   }
 
-  async postScores(data) { // eslint-disable-line class-methods-use-this
+  postScores(data) { // eslint-disable-line class-methods-use-this
     const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/xJaaYOvOiH8wnFAVEPTP/scores/';
 
     const fetchData = {
@@ -187,6 +164,6 @@ export default class GameScene extends Phaser.Scene {
       body: data,
     };
 
-    return fetch(url, fetchData).then((response) => response.json());
+    return fetch(url, fetchData).then((response) => response).catch(() => {});
   }
 }
