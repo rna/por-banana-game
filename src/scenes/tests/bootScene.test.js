@@ -2,7 +2,7 @@ import BootScene from '../bootScene';
 
 const Boot = new BootScene();
 
-test('Boot should be an instance of WorldScene class', () => {
+test('Boot should be an instance of BootScene class', () => {
   expect(Boot).toBeInstanceOf(BootScene);
 });
 

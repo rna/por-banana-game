@@ -1,11 +1,4 @@
-import Phaser from 'phaser';
-import controls from '../assets/controls.png';
-import play from '../assets/play.png';
-
-export default class TitleScene extends Phaser.Scene {
-  constructor() {
-    super('Title');
-  }
+export default class TitleScene {
 
   preload() {
     this.load.image('controls', controls);
