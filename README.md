@@ -18,6 +18,8 @@
 
 - A monkey is looking for the bananas in a forest. But the Wild Cats are all over roaming around the forest. The player will get bananas for a monkey by helping to escape from the Wild Cats.
 
+Refer this [GDD](./GDD.md) for details.
+
 ## Game Scenes
 
 ### Welcome Scene
